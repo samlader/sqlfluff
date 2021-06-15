@@ -48,6 +48,7 @@ postgres_dialect.sets("unreserved_keywords").update(
         "BUFFERS",
         "FORMAT",
         "XML",
+        "TIMESTAMPTZ",
     ]
 )
 postgres_dialect.sets("reserved_keywords").add("WITHIN")
@@ -82,6 +83,17 @@ postgres_dialect.replace(
         Ref("ComparisonOperatorGrammar"),
         # Add JSON operators
         Ref("JsonOperatorSegment"),
+    ),
+    DateTimeLiteralGrammar=Sequence(
+        OneOf(
+            "DATE",
+            "TIME",
+            "TIMESTAMP",
+            "INTERVAL",
+            # Add "timestamp with time zone" abbreviation
+            "TIMESTAMPTZ"
+        ),
+        Ref("QuotedLiteralSegment")
     ),
 )
 

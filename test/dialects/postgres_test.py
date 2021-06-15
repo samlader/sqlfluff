@@ -38,3 +38,19 @@ def test_space_is_not_reserved(raw):
     lnt = Linter(config=cfg)
     result = lnt.lint_string(raw)
     assert result.num_violations() == 0
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        "SELECT TIMESTAMPTZ '2013-07-01 12:00:00';",
+    ],
+)
+def test_timestamp(raw):
+    """Test timestamptz keyword for postgres dialect."""
+    cfg = FluffConfig(
+        configs={"core": {"exclude_rules": "L009,L016", "dialect": "postgres"}}
+    )
+    lnt = Linter(config=cfg)
+    result = lnt.lint_string(raw)
+    assert result.num_violations() == 0
