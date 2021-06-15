@@ -93,7 +93,7 @@ postgres_dialect.replace(
             # Add "timestamp with time zone" abbreviation
             "TIMESTAMPTZ",
         ),
-        Ref("QuotedLiteralSegment")
+        Ref("QuotedLiteralSegment"),
     ),
 )
 
